@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PaintController : MonoBehaviour
  {
     private Vector2 m_disImagePos;
-    
+
     [SerializeField]
     
 	private RawImage m_image = null;
@@ -16,13 +16,15 @@ public class PaintController : MonoBehaviour
 
     public Texture2D source_texture = null;
 
-    [SerializeField]
+    public bool erase = false;
+
+    /*[SerializeField]
     private int m_width = 4;
  
     [SerializeField]
-    private int m_height = 4;
+    private int m_height = 4;*/
 
-    public int Scale = 4;
+    public int m_radius = 4;
 
     public Color color;
  
@@ -42,8 +44,10 @@ public class PaintController : MonoBehaviour
 
         float disTime = m_clickTime - m_preClickTime; //前回のクリックイベントとの時差
 
-        int width  = m_width;  //ペンの太さ(ピクセル)
-        int height = m_height; //ペンの太さ(ピクセル)
+        //int width  = m_width;  //ペンの太さ(ピクセル)
+        //int height = m_height; //ペンの太さ(ピクセル)
+
+        int radius = m_radius;
 
         var dir  = m_prePos - m_TouchPos; //直前のタッチ座標との差
         if(disTime > 0.01) dir = new Vector2(0,0); //0.1秒以上間隔があいたらタッチ座標の差を0にする
@@ -56,19 +60,30 @@ public class PaintController : MonoBehaviour
         for(int d = 0; d < dist; ++d)
         {
             var p_pos = m_TouchPos + dir * d; //paint position
-            p_pos.y -= height/2.0f;
-            p_pos.x -= width/2.0f;
-            for ( int h = 0; h < height; ++h )
+            //p_pos.y -= radius;
+            //p_pos.x -= radius;
+            for ( int h = -radius; h <= radius; ++h )
             {
                 int y = (int)(p_pos.y + h);
                 if ( y < 0 || y > m_texture.height ) continue; //タッチ座標がテクスチャの外の場合、描画処理を行わない
 
-                for ( int w = 0; w < width; ++w )
+                for ( int w = -radius; w <= radius; ++w )
                 {
                     int x = (int)(p_pos.x + w);
-                    if ( x >= 0 && x <= m_texture.width )
+
+                    if (x >= 0 && x <= m_texture.width)
                     {
-                        m_texture.SetPixel( x, y, color ); //線を描画
+                        if (w * w + h * h <= radius * radius)
+                        {
+                            if (erase == true)
+                            {
+                                m_texture.SetPixel(x, y, new Color(0, 0, 0, 0));//消しゴム
+                            }
+                            else
+                            {
+                                m_texture.SetPixel(x, y, color); //線を描画
+                            }
+                        }
                     }
                 }
             }
@@ -84,25 +99,37 @@ public class PaintController : MonoBehaviour
 
         // 押されているときの処理
         m_TouchPos = _event.position - m_disImagePos;
-		//m_TouchPos = _event.position; //現在のポインタの座標
+        //m_TouchPos = _event.position; //現在のポインタの座標
 
-        int width  = m_width;  //ペンの太さ(ピクセル)
-        int height = m_height; //ペンの太さ(ピクセル)
+        //int width  = m_width;  //ペンの太さ(ピクセル)
+        //int height = m_height; //ペンの太さ(ピクセル)
+
+        int radius = m_radius;
 
         var p_pos = m_TouchPos; //paint position
-        p_pos.y -= height/2.0f;
-        p_pos.x -= width/2.0f;
+        //p_pos.y -= radius;
+        //p_pos.x -= radius;
 
-        for ( int h = 0; h < height; ++h )
+        for ( int h = -radius; h <= radius; ++h )
         {
             int y = (int)(p_pos.y + h);
             if ( y < 0 || y > m_texture.height ) continue; //タッチ座標がテクスチャの外の場合、描画処理を行わない
-            for ( int w = 0; w < width; ++w )
+            for ( int w = -radius; w <= radius; ++w )
             {
                 int x = (int)(p_pos.x + w);
                 if ( x >= 0 && x <= m_texture.width )
                 {
-                    m_texture.SetPixel( x, y, color ); //点を描画
+                    if (w * w + h * h <= radius * radius)
+                    {
+                        if (erase == true)
+                            {
+                                m_texture.SetPixel(x, y, new Color(0, 0, 0, 0));//消しゴム
+                            }
+                            else
+                            {
+                                m_texture.SetPixel(x, y, color); //線を描画
+                            }
+                    }
                 }
             }
         }       

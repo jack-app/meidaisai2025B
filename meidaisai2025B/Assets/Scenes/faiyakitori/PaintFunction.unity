@@ -331,10 +331,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_image: {fileID: 1664522092}
   source_texture: {fileID: 2800000, guid: d58b8b3e4a17bb647a1d08eb1ee95bf8, type: 3}
-  m_width: 4
-  m_height: 4
-  Scale: 4
-  color: {r: 0, g: 0, b: 0, a: 0}
+  erase: 0
+  m_radius: 40
+  color: {r: 0, g: 0, b: 0, a: 1}
 --- !u!4 &986922200
 Transform:
   m_ObjectHideFlags: 0
