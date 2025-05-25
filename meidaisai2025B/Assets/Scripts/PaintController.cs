@@ -299,6 +299,7 @@ public class PaintController : MonoBehaviour
 
         color = ObjectColor;
         pointer.color = ObjectColor;
+        bucket.color = ObjectColor;
     }
 
     public void ToPNG()
