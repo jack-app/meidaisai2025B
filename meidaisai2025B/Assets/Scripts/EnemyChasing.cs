@@ -9,7 +9,6 @@ public class EnemyChasing : MonoBehaviour
 
     [SerializeField]
     private Animator anim;
-    public bool useAnim = true;
 
     public float ChaseRange = 6.0f;
 

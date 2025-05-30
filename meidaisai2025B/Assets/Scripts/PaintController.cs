@@ -22,12 +22,6 @@ public class PaintController : MonoBehaviour
     public bool isErase = false;
     public bool isFill = false;
 
-    /*[SerializeField]
-    private int m_width = 4;
- 
-    [SerializeField]
-    private int m_height = 4;*/
-
     public int m_radius = 4;
 
     public Color color;
@@ -51,13 +45,10 @@ public class PaintController : MonoBehaviour
 
         // 押されているときの処理
         m_TouchPos = _event.position - m_disImagePos;
-        //m_TouchPos = _event.position; //現在のポインタの座標
+
         m_clickTime = _event.clickTime; //最後にクリックイベントが送信された時間を取得
 
         float disTime = m_clickTime - m_preClickTime; //前回のクリックイベントとの時差
-
-        //int width  = m_width;  //ペンの太さ(ピクセル)
-        //int height = m_height; //ペンの太さ(ピクセル)
 
         int radius = m_radius;
 
@@ -68,41 +59,43 @@ public class PaintController : MonoBehaviour
 
         dir = dir.normalized; //正規化
 
-        //指定のペンの太さ(ピクセル)で、前回のタッチ座標から今回のタッチ座標まで塗りつぶす
-        for (int d = 0; d < dist; ++d)
+        if (isFill == false)
         {
-            var p_pos = m_TouchPos + dir * d; //paint position
-            //p_pos.y -= radius;
-            //p_pos.x -= radius;
-            for (int h = -radius; h <= radius; ++h)
+            //指定のペンの太さ(ピクセル)で、前回のタッチ座標から今回のタッチ座標まで塗りつぶす
+            for (int d = 0; d < dist; ++d)
             {
-                int y = (int)(p_pos.y + h);
-                if (y < 0 || y > m_texture.height) continue; //タッチ座標がテクスチャの外の場合、描画処理を行わない
+                var p_pos = m_TouchPos + dir * d; //paint position
 
-                for (int w = -radius; w <= radius; ++w)
+                for (int h = -radius; h <= radius; ++h)
                 {
-                    int x = (int)(p_pos.x + w);
+                    int y = (int)(p_pos.y + h);
+                    if (y < 0 || y > m_texture.height) continue; //タッチ座標がテクスチャの外の場合、描画処理を行わない
 
-                    if (x >= 0 && x <= m_texture.width)
+                    for (int w = -radius; w <= radius; ++w)
                     {
-                        if (w * w + h * h <= radius * radius)
+                        int x = (int)(p_pos.x + w);
+
+                        if (x >= 0 && x <= m_texture.width)
                         {
-                            if (isErase == true)
+                            if (w * w + h * h <= radius * radius)
                             {
-                                m_texture.SetPixel(x, y, new Color(0, 0, 0, 0));//消しゴム
-                            }
-                            else
-                            {
-                                m_texture.SetPixel(x, y, color); //線を描画
+                                if (isErase == true)
+                                {
+                                    m_texture.SetPixel(x, y, new Color(0, 0, 0, 0));//消しゴム
+                                }
+                                else
+                                {
+                                    m_texture.SetPixel(x, y, color); //線を描画
+                                }
                             }
                         }
                     }
                 }
             }
+            m_texture.Apply();
+            m_prePos = m_TouchPos;
+            m_preClickTime = m_clickTime;
         }
-        m_texture.Apply();
-        m_prePos = m_TouchPos;
-        m_preClickTime = m_clickTime;
     }
 
     public void OnTap(BaseEventData arg) //点を描画
@@ -116,8 +109,6 @@ public class PaintController : MonoBehaviour
         int radius = m_radius;
 
         var p_pos = m_TouchPos; //paint position
-        //p_pos.y -= radius;
-        //p_pos.x -= radius;
 
         if (isFill == false)
         {
@@ -202,9 +193,6 @@ public class PaintController : MonoBehaviour
 
         Graphics.CopyTexture(source_texture, m_texture);
 
-        //下の行追加（2021/10/21）
-        //WhiteTexture((int)rect.width, (int)rect.height);
-
         m_image.texture = m_texture;
 
         var m_imagePos = m_image.gameObject.GetComponent<RectTransform>().anchoredPosition;
@@ -237,20 +225,6 @@ public class PaintController : MonoBehaviour
 
         pointer.transform.position = mousePos;
     }
-
-    //下の関数を追加（2021/10/21）
-    //テクスチャを白色にする関数
-    /*private void WhiteTexture(int width, int height)
-    {
-        for (int w = 0; w < width; w++)
-        {
-            for (int h = 0; h < height; h++)
-            {
-                m_texture.SetPixel(w, h, Color.white);
-            }
-        }
-        m_texture.Apply();
-    }*/
 
     public void IsErase()
     {

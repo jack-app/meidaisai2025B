@@ -2438,7 +2438,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2713842588922065756, guid: 92892a5ac198cc44b8d38e0bc93bf5f4, type: 3}
       propertyPath: ChaseRange
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2713842588922065756, guid: 92892a5ac198cc44b8d38e0bc93bf5f4, type: 3}
       propertyPath: randomSpan
