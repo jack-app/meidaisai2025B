@@ -293,10 +293,4 @@ public class PaintController : MonoBehaviour
         
         //Debug.Log(storagePath);
     }
-    
-    Texture2D ResizeTexture(Texture2D srcTexture, int newWidth, int newHeight) {
-        var resizedTexture = new Texture2D(newWidth, newHeight);
-        Graphics.ConvertTexture(srcTexture, resizedTexture);
-        return resizedTexture;
-    }
 }
