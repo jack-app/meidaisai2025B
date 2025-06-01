@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/hotaru/scene_change/room1_hotaru.unity
+    guid: 0c11eb8d06d81314998cdb7ad11feb96
+  - enabled: 1
+    path: Assets/Scenes/hotaru/scene_change/room2_hotaru.unity
+    guid: 5764024538c7c6440b82e571d61180b3
+  - enabled: 1
+    path: Assets/Scenes/hotaru/scene_change/room3_hotaru.unity
+    guid: 9875a8a0f9a48964e99e0376527d42d3
   m_configObjects: {}

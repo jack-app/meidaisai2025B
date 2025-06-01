@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SwitchTrigger
+  - camera2
+  - 1to2
+  - 2to1
+  - 2to3
+  - 3to2
   layers:
   - Default
   - TransparentFX
