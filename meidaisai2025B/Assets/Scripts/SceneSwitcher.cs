@@ -3,6 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
+    public void GoToPaintScene()
+    {
+        SceneManager.LoadScene("MinaScene");
+    }
 
     public void GoToGameScene()
     {
