@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 8524032522580947948}
   - component: {fileID: 725286248003277584}
   - component: {fileID: 5553192439561999163}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Slime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: -1901287723, guid: 2ee0aeaa016837a4b80ae9d289e3deec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -204,7 +204,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   anim: {fileID: 4717627180466100463}
-  useAnim: 1
   ChaseRange: 6
   randamWalk: 1
   randomSpan: 5

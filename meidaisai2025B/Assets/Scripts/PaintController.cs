@@ -12,7 +12,6 @@ public class PaintController : MonoBehaviour
     private Vector2 m_disImagePos;
 
     [SerializeField]
-
     private RawImage m_image = null;
 
     private Texture2D m_texture = null;
@@ -39,6 +38,8 @@ public class PaintController : MonoBehaviour
     private RectTransform eraserRT;
     private RectTransform bucketRT;
     public Vector2 mousePos, worldPos;
+
+
     public void OnDrag(BaseEventData arg) //線を描画
     {
         PointerEventData _event = arg as PointerEventData; //タッチの情報取得
@@ -278,19 +279,55 @@ public class PaintController : MonoBehaviour
 
     public void ToPNG()
     {
-        var storagePath = Application.dataPath + "/" + "Player.png";
+        // 保存先を Application.persistentDataPath に変更
+        string baseFileName = "Player";
+        string baseFileNameSmall = "PlayerSmall";
+        string fileExtension = ".png";
 
-        //Texture2D resizedTexture = ResizeTexture(m_texture, 516, 516);
+        string storagePath = Path.Combine(Application.persistentDataPath, baseFileName + fileExtension);
+        string storagePathS = Path.Combine(Application.persistentDataPath, baseFileNameSmall + fileExtension);
+
+        Texture2D smallTex = ResizeTexture(m_texture, m_texture.width / 4, m_texture.height / 4);
+
         byte[] png = m_texture.EncodeToPNG();
+        byte[] pngS = smallTex.EncodeToPNG();
 
         System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
         sw.Start();
 
-        File.WriteAllBytes(storagePath, png);
+        try
+        {
+            File.WriteAllBytes(storagePath, png);
+            Debug.Log("Player image saved to: " + storagePath);
+            File.WriteAllBytes(storagePathS, pngS);
+            Debug.Log("PlayerSmall image saved to: " + storagePathS);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Failed to save image: " + e.ToString());
+        }
+        finally
+        {
+             sw.Stop();
+             Debug.Log("Image saving process took: " + sw.ElapsedMilliseconds + "ms");
+        }
+    }
+    
+    private Texture2D ResizeTexture(Texture2D srcTexture, int newWidth, int newHeight)
+    {
+        RenderTexture rt = new RenderTexture(newWidth, newHeight, 24); // 24はデプスバッファのビット数、アルファなしなら0でも
+        RenderTexture.active = rt; // アクティブなRenderTextureを設定
         
-        sw.Stop();
-        Debug.Log(sw.ElapsedMilliseconds + "ms");
+        Graphics.Blit(srcTexture, rt); // srcTextureをrtにリサイズしてコピー
         
-        //Debug.Log(storagePath);
+        Texture2D resizedTexture = new Texture2D(newWidth, newHeight);
+        resizedTexture.ReadPixels(new Rect(0, 0, newWidth, newHeight), 0, 0); // rtの内容を読み込む
+        resizedTexture.Apply();
+
+        RenderTexture.active = null; // アクティブなRenderTextureを解除
+        rt.Release(); // RenderTextureを解放
+        Destroy(rt); // RenderTextureオブジェクトを破棄 (念のため)
+
+        return resizedTexture;
     }
 }

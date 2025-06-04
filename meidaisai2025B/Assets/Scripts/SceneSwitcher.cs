@@ -10,7 +10,7 @@ public class SceneController : MonoBehaviour
 
     public void GoToGameScene()
     {
-        SceneManager.LoadScene("GameScene"); // ゲーム画面へ遷移
+        SceneManager.LoadScene("hotaru_scene"); // ゲーム画面へ遷移
     }
 
     public void GoToResultScene()
