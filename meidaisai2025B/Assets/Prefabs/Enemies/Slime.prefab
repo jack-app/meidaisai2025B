@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8524032522580947948}
   - component: {fileID: 725286248003277584}
   - component: {fileID: 5553192439561999163}
+  - component: {fileID: 6907327901496829877}
   m_Layer: 6
   m_Name: Slime
   m_TagString: Enemy
@@ -207,3 +208,20 @@ MonoBehaviour:
   ChaseRange: 6
   randamWalk: 1
   randomSpan: 5
+--- !u!114 &6907327901496829877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699180529149276329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acba5e82c2b759d4a8240754dbd49dac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP_enemy: 100
+  ATK_enemy: 10
+  SPD_enemy: 10
+  SCORE: 100
+  player_Moves: {fileID: 0}

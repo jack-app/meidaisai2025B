@@ -29,4 +29,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/faiyakitori/ResultScene.unity
     guid: dfe7d1eb1fbd83441b80900607fa7af8
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 77c7e5da4eb161f48a35c721ef765310, type: 3}

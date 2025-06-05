@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 
 public class GamePartController : MonoBehaviour
 {
@@ -133,11 +131,12 @@ public class GamePartController : MonoBehaviour
         GameObject displayStatus = GameObject.Find("DisplayStatus");
         displayStatus.SetActive(false);
 
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.2f);
+        audioSource.PlayOneShot(StartSE);
 
+        yield return new WaitForSecondsRealtime(0.3f);
         GameObject startLetters = GameObject.Find("GameStart");
         startLetters.GetComponent<Text>().enabled = true;
-        audioSource.PlayOneShot(StartSE);
 
         yield return new WaitForSecondsRealtime(1.3f);
 
@@ -152,7 +151,7 @@ public class GamePartController : MonoBehaviour
         Time.timeScale = originalTimeScale; // 元のTimeScaleに戻すのがより安全です
     }
 
-    IEnumerator DisplayStatus(Text status, int statusNum)   
+    IEnumerator DisplayStatus(Text status, int statusNum)
     {
         var statusSum = status.transform.GetChild(0).GetComponent<Text>();
         var statusBar = status.transform.GetChild(1).GetComponent<Image>();
