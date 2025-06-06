@@ -13,6 +13,8 @@ public class atariyou : MonoBehaviour
     
     public player_moves player_Moves;
 
+    
+
 
     // Start is called before the first frame update
     //Collider2D　にしないと反応しないため注意
