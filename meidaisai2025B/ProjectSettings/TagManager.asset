@@ -3,15 +3,28 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+
+  - walls
+  - atarutag
+  - SwitchTrigger
+  - camera2
+  - 1to2
+  - 2to1
+  - 2to3
+  - 3to2
+  - Enemy
+  - Pointer
+  
+
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - Enemy
   - 
   - 
   - 
