@@ -48,7 +48,7 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if(!isSlashing)
         SwordFollow();

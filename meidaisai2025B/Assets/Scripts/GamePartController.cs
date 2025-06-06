@@ -25,7 +25,10 @@ public class GamePartController : MonoBehaviour
 
     //部屋管理
     public int roomNum = 0;
+
+
     public bool isStart = false;
+    private PlayerAttack playerAttack;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +66,10 @@ public class GamePartController : MonoBehaviour
 
         enemiesInRoom = new List<int> { 0, 0, 0 };
         killInRoom = new List<int> { 0, 0, 0 };
+
+        playerAttack = player.transform.GetChild(0).GetComponent<PlayerAttack>();
+        playerAttack.enabled = false;
+
         StartCoroutine(GameStart());
     }
 
@@ -149,6 +156,7 @@ public class GamePartController : MonoBehaviour
 
         // 時間を元に戻す
         Time.timeScale = originalTimeScale; // 元のTimeScaleに戻すのがより安全です
+        playerAttack.enabled = true;
     }
 
     IEnumerator DisplayStatus(Text status, int statusNum)

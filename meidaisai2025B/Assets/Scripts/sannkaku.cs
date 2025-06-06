@@ -23,7 +23,7 @@ public class sannkaku : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         mypositon = ugoki.playerpositions;
         Vector2 moveDir = ugoki.veloc2.normalized;
